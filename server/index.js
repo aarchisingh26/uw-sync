@@ -7,6 +7,10 @@ const pool = require("./db");
 app.use(cors());
 app.use(express.json());
 
+app.use(cors({
+    origin: 'https://uw-sync.vercel.app'
+  }));
+
 //ROUTES
 
 //get a exam
