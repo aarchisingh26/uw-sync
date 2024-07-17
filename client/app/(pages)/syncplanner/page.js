@@ -33,7 +33,8 @@ export default function SyncPlanner() {
 
         if (course.trim()) {
         try {
-            const response = await fetch(`http://localhost:5002/exams/?courseName=${course}`);
+            // const response = await fetch(`http://localhost:5002/exams/?courseName=${course}`);
+            const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${course}`);
             const parseResponse = await response.json();
 
             //flag indicating whether each exam is already in the planner
