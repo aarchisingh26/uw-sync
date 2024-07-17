@@ -89,10 +89,12 @@ app.use(express.json());
 app.get("/exams", async (req, res) => {
     try {
         const { courseName } = req.query;
+        console.log(`Received query parameter: courseName=${courseName}`);
         const exams = await pool.query("SELECT * from exams WHERE course ILIKE $1", [`%${courseName}%`]);
         res.json(exams.rows);
     } catch (err) {
         console.error(err.message);
+        console.error("Error fetching exams:", err.message);
         res.status(500).send('Server Error');
     }
 });
