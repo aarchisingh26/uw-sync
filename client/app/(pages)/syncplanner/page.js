@@ -28,74 +28,32 @@ export default function SyncPlanner() {
         }
     }, []);
 
-    // const onSubmitForm = async (e) => {
-    //     e.preventDefault();
-
-    //     if (course.trim()) {
-    //     try {
-    //         // const response = await fetch(`http://localhost:5002/exams/?courseName=${course}`);
-    //         const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${course}`);
-    //         const parseResponse = await response.json();
-
-    //         //flag indicating whether each exam is already in the planner
-    //         const updatedExams = parseResponse.map((exam) => {
-    //         if (addedExams.includes(exam.exam_id)) {
-    //             return { ...exam, added: true };
-    //         }
-    //         return exam;
-    //         });
-
-    //         setExams(updatedExams);
-    //     } catch (err) {
-    //         console.error(err.message);
-    //     }
-    //     } else {
-    //     console.log("Please enter a valid course name");
-    //     setExams([]);
-    //     }
-    // };
-
     const onSubmitForm = async (e) => {
-      e.preventDefault();
-  
-      if (course.trim()) {
-          try {
-              // Make sure to encode the course name to handle special characters properly
-              const encodedCourse = encodeURIComponent(course);
-              // const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${encodedCourse}`);
-              const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${encodedCourse}`, {
-                method: 'GET',
-                mode: 'cors',  // Ensure mode is 'cors' for cross-origin requests
-                headers: {
-                    'Content-Type': 'application/json',
-                    // Add any other headers as needed
-                },
+        e.preventDefault();
+
+        if (course.trim()) {
+        try {
+            // const response = await fetch(`http://localhost:5002/exams/?courseName=${course}`);
+            const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${course}`);
+            const parseResponse = await response.json();
+
+            //flag indicating whether each exam is already in the planner
+            const updatedExams = parseResponse.map((exam) => {
+            if (addedExams.includes(exam.exam_id)) {
+                return { ...exam, added: true };
+            }
+            return exam;
             });
-              
-              if (!response.ok) {
-                  throw new Error('Network response was not ok');
-              }
-              const parseResponse = await response.json();
-  
-              // Flag indicating whether each exam is already in the planner
-              const updatedExams = parseResponse.map((exam) => {
-                  if (addedExams.includes(exam.exam_id)) {
-                      return { ...exam, added: true };
-                  }
-                  return exam;
-              });
-  
-              setExams(updatedExams);
-          } catch (err) {
-              console.error('Error fetching exams:', err.message);
-              // Handle error state or display user-friendly error message
-          }
-      } else {
-          console.log("Please enter a valid course name");
-          setExams([]);
-      }
-  };
-  
+
+            setExams(updatedExams);
+        } catch (err) {
+            console.error(err.message);
+        }
+        } else {
+        console.log("Please enter a valid course name");
+        setExams([]);
+        }
+    };
 
     const addToPlanner = (exam) => {
         setPlanner((prevPlanner) => [...prevPlanner, exam]);
