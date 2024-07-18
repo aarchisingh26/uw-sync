@@ -62,7 +62,16 @@ export default function SyncPlanner() {
           try {
               // Make sure to encode the course name to handle special characters properly
               const encodedCourse = encodeURIComponent(course);
-              const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${encodedCourse}`);
+              // const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${encodedCourse}`);
+              const response = await fetch(`https://uw-sync-backend.vercel.app/exams/?courseName=${encodedCourse}`, {
+                method: 'GET',
+                mode: 'cors',  // Ensure mode is 'cors' for cross-origin requests
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any other headers as needed
+                },
+            });
+              
               if (!response.ok) {
                   throw new Error('Network response was not ok');
               }
