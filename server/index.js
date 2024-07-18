@@ -167,13 +167,16 @@ const app = express();
 const cors = require("cors");
 const pool = require("./db");
 
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cors);
+
 const corsOptions = {
   origin: 'https://uw-sync.vercel.app',
   credentials: true
 };
 
-app.use(cors(corsOptions));
-app.use(express.json());
+
 
 // Test route to verify environment variables
 app.get("/test-env", (req, res) => {
