@@ -72,7 +72,7 @@ const pool = require("./db");
 
 // Configure CORS
 const corsOptions = {
-  origin: 'https://uw-sync.vercel.app',
+  origin: 'https://uw-sync.vercel.app/',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE',
   allowedHeaders: 'Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
   credentials: true,
