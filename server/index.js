@@ -168,7 +168,7 @@ const cors = require("cors");
 const pool = require("./db");
 
 const corsOptions = {
-  origin: 'uw-sync-backend.vercel.app',
+  origin: 'https://uw-sync-backend.vercel.app',
   credentials: true
 };
 
