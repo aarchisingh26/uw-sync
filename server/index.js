@@ -180,6 +180,18 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Test route to verify environment variables
+app.get("/test-env", (req, res) => {
+    const envVars = {
+        user: process.env.USER,
+        host: process.env.HOST,
+        port: process.env.PORT,
+        database: process.env.DB
+    };
+    console.log("Environment Variables:", envVars);
+    res.json(envVars);
+});
+
 app.get("/exams", async (req, res) => {
     try {
         const { courseName } = req.query;
