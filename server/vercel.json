@@ -1,0 +1,6 @@
+{
+    "routes": [
+      { "src": "/api/exams/(.*)", "dest": "https://uw-sync-backend.vercel.app/exams/$1" }
+    ]
+}
+  
