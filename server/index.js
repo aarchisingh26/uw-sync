@@ -169,12 +169,7 @@ const pool = require("./db");
 
 const corsOptions = {
   origin: 'https://uw-sync.vercel.app',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS,CONNECT,TRACE',
-  allowedHeaders: 'Content-Type, Authorization, X-Content-Type-Options, Accept, X-Requested-With, Origin, Access-Control-Request-Method, Access-Control-Request-Headers',
-  credentials: true,
-  maxAge: 7200,
-  preflightContinue: false,
-  optionsSuccessStatus: 204
+  credentials: true
 };
 
 app.use(cors(corsOptions));
@@ -190,6 +185,17 @@ app.get("/test-env", (req, res) => {
     };
     console.log("Environment Variables:", envVars);
     res.json(envVars);
+});
+
+// Test route to verify database connection
+app.get("/test-db", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT NOW()");
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error("Error connecting to the database:", err);
+        res.status(500).send("Database connection error");
+    }
 });
 
 app.get("/exams", async (req, res) => {
